@@ -8,8 +8,7 @@ app.use(express.json());
 
 let youtube;
 
-// Initialize youtubei.js once
-(async () => {
+let youtubeReady = (async () => {
   youtube = await Innertube.create();
   console.log("✅ YouTube API initialized");
 })();
@@ -32,6 +31,9 @@ app.get("/video/transcript", async (req, res) => {
     if (!videoId) {
       return res.status(400).json({ error: "Missing videoId parameter" });
     }
+    
+    // ✅ Ensure YouTube is ready before use
+    await youtubeReady;
 
     const info = await youtube.getInfo(videoId);
     const transcript = await info.getTranscript();
