@@ -31,7 +31,7 @@ app.get("/video/transcript", async (req, res) => {
     if (!videoId) {
       return res.status(400).json({ error: "Missing videoId parameter" });
     }
-    
+
     // ✅ Ensure YouTube is ready before use
     await youtubeReady;
 
@@ -57,6 +57,9 @@ app.get("/video/info", async (req, res) => {
   try {
     const { videoId } = req.query;
     if (!videoId) return res.status(400).json({ error: "Missing videoId parameter" });
+
+    // ✅ Ensure YouTube is ready before use
+    await youtubeReady;
 
     const info = await youtube.getInfo(videoId);
     const details = info.basic_info;
@@ -87,6 +90,9 @@ app.get("/video", async (req, res) => {
   try {
     const { videoId, quality } = req.query;
     if (!videoId) return res.status(400).json({ error: "Missing videoId parameter" });
+
+    // ✅ Ensure YouTube is ready before use
+    await youtubeReady;
 
     const info = await youtube.getInfo(videoId);
     const formats = info.streaming_data?.formats || [];
@@ -125,6 +131,9 @@ app.get("/video/search", async (req, res) => {
     const { query, limit } = req.query;
     if (!query) return res.status(400).json({ error: "Missing query parameter" });
 
+    // ✅ Ensure YouTube is ready before use
+    await youtubeReady;
+    
     const results = await youtube.search(query, { type: "video" });
     const videos = results.videos.slice(0, limit ? parseInt(limit) : 10).map(v => ({
       id: v.id,
