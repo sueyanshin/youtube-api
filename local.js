@@ -7,24 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 let youtube;
+
 let youtubeReady = (async () => {
-  youtube = await Innertube.create({
-    fetch: (input, init) =>
-      fetch(input, {
-        ...init,
-        headers: {
-          ...init?.headers,
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-          "Accept-Language": "en-US,en;q=0.9",
-        },
-      }),
-    lang: "en",
-    location: "US",
-  });
+  youtube = await Innertube.create();
   console.log("✅ YouTube API initialized");
 })();
-
 
 // API route
 app.get("/", async (req, res) => {
