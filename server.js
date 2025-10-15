@@ -74,19 +74,23 @@ app.get("/video/info", async (req, res) => {
     await youtubeReady;
 
     const info = await youtube.getInfo(videoId);
-    const details = info.basic_info;
-
-    const videoInfo = {
-      id: details.id,
-      title: details.title,
-      author: details.author,
-      description: details.short_description,
-      duration: details.duration,
-      views: details.view_count,
-      thumbnails: details.thumbnail,
-      uploadDate: details.upload_date,
-      // category: details.category || "Unknown",
-    };
+let details = {};
+try {
+  details = info.basic_info || info.info?.basic_info || info.video_details;
+} catch (e) {
+  console.warn("⚠️ Failed to parse basic_info, skipping description");
+  details = info.video_details || {};
+}
+const videoInfo = {
+  id: details.id || videoId,
+  title: details.title,
+  author: details.author?.name || details.author,
+  description: details.short_description || "Unavailable",
+  duration: details.duration,
+  views: details.view_count,
+  thumbnails: details.thumbnail || details.thumbnails,
+  uploadDate: details.upload_date,
+};
 
     res.json(videoInfo);
   } catch (error) {
