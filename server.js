@@ -62,7 +62,14 @@ app.get("/video/info", async (req, res) => {
     await youtubeReady;
 
     const info = await youtube.getInfo(videoId);
-    const details = info.basic_info;
+    // ✅ Try both structures
+    const details = info.basic_info || info.info?.basic_info || info.video_details;
+
+    if (!details) {
+      console.error("⚠️ No video details found for:", videoId);
+      return res.status(404).json({ error: "Video details not found" });
+    }
+
     console.log(info)
     const videoInfo = {
       id: details.id,
