@@ -15,6 +15,17 @@ let youtube;
 })();
 
 // API route
+app.get("/", async (req, res) => {
+  try {
+    res.json("Hello World");
+  } catch (error) {
+    console.error("Error fetching transcript:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+// API route
 app.get("/video/transcript", async (req, res) => {
   try {
     const { videoId } = req.query;
