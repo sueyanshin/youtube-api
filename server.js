@@ -141,5 +141,7 @@ app.get("/video/search", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+
+module.exports = app;
