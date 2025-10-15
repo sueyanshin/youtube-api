@@ -73,7 +73,7 @@ app.get("/video/info", async (req, res) => {
       views: details.view_count,
       thumbnails: details.thumbnail,
       uploadDate: details.upload_date,
-      category: details.category || "Unknown",
+      // category: details.category || "Unknown",
     };
 
     res.json(videoInfo);
