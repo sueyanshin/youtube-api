@@ -63,7 +63,7 @@ app.get("/video/info", async (req, res) => {
 
     const info = await youtube.getInfo(videoId);
     const details = info.basic_info;
-
+    console.log(info)
     const videoInfo = {
       id: details.id,
       title: details.title,
