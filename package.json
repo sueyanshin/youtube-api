@@ -1,0 +1,17 @@
+{
+  "name":"youtube-api",
+  "version": "0.0.1",
+  "description": "Access Youtube API without authentication",
+  "main": "server.js",
+
+  "scripts": {
+    "start": "node server"
+  },
+  "author": "Sue Yan Shin",
+  "license":"ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "youtubei.js": "^16.0.0"
+  }
+}
