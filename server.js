@@ -73,7 +73,7 @@ app.get("/video/info", async (req, res) => {
       views: details.view_count,
       thumbnails: details.thumbnail,
       uploadDate: details.upload_date,
-      category: details.category,
+      category: details.category || "Unknown",
     };
 
     res.json(videoInfo);
@@ -133,7 +133,7 @@ app.get("/video/search", async (req, res) => {
 
     // ✅ Ensure YouTube is ready before use
     await youtubeReady;
-    
+
     const results = await youtube.search(query, { type: "video" });
     const videos = results.videos.slice(0, limit ? parseInt(limit) : 10).map(v => ({
       id: v.id,
